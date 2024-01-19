@@ -6,6 +6,7 @@ import mpld3
 import streamlit as st
 import streamlit.components.v1 as components
 from collections import defaultdict
+
 class IMPNode:
     MAX_NEIGHBORS = 4
 
@@ -123,14 +124,14 @@ def main():
     # Création du formulaire
     st.sidebar.header("Nombre de noeuds :", divider='rainbow')
     with st.sidebar.form("network_config"):
-        random_nodes = st.checkbox("Cocher pour un nombre aléatoire (3-30)")
+        random_nodes = st.checkbox("Cochez pour un nombre aléatoire (3-30)")
         if random_nodes:
             nb_nodes = random.randint(3, 30)
-            st.write(f"Nombre de noeuds actuel (aléatoire): {nb_nodes}")
+            st.write(f"Nombre de nœuds actuel (aléatoire): {nb_nodes}")
         else:
             st.divider()
-            nb_nodes = st.slider("Choix du nombre de noeuds (3-30) :", 3, 30, 15)
-        submit_button = st.form_submit_button(label="Générer Réseau")
+            nb_nodes = st.slider("Choisissez le nombre de nœuds (3-30) :", 3, 30, 15)
+        submit_button = st.form_submit_button(label="Générer le Réseau")
 
     # Si le bouton est cliqué
     if submit_button:
@@ -143,7 +144,7 @@ def main():
 
         # Affichage du graphique et du diamètre
         st.header("Représentation graphique du réseau :")
-        st.caption(f'Avec :blue[{nb_nodes}] noeuds réseau, ayant chacun maximum :blue[{IMPNode.MAX_NEIGHBORS}] liaisons')
+        st.caption(f'Avec :blue[{nb_nodes}] nœuds réseau, ayant chacun un maximum de :blue[{IMPNode.MAX_NEIGHBORS}] liaisons.')
         fig = network.draw('Router_symbol.png')  # Obtient le graphique Matplotlib
         fig_html = mpld3.fig_to_html(fig)  # Convertit le graphique en HTML interactif
         components.html(fig_html, height=810 )
